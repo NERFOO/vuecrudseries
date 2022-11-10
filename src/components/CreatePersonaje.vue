@@ -20,6 +20,8 @@
 import ServicesSeries from './../services/ServicesSeries';
 const service = new ServicesSeries();
 
+import Swal from 'sweetalert2';
+
 export default {
     name : "CreatePersonaje" ,
     data() {
@@ -35,7 +37,15 @@ export default {
     methods : {
         crearPersonaje() {
             service.postPersonaje(this.personaje).then( () => {
-                this.$router.push("/");
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se ha creado el personaje',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then( () => {
+                    this.$router.push(`/personajes/${this.personaje.idSerie}`);
+                })
             })
         }
     }
